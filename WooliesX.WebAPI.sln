@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WooliesX.WebAPI", "WooliesX
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WooliesX.Interface", "WooliesX.Interface\WooliesX.Interface.csproj", "{D5F070AA-C5D3-458F-8F48-A0BF288EC06C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WooliesX.Dependancy", "WooliesX.Dependancy\WooliesX.Dependancy.csproj", "{60A9E804-0BB9-4452-83C6-C640031F54C6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WooliesX.Connector", "WooliesX.Connector\WooliesX.Connector.csproj", "{5AC19836-34C1-4F09-B576-611EB935222F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WooliesX.Models", "WooliesX.Models\WooliesX.Models.csproj", "{20F82B42-AC65-4C43-BF11-55A275E92DF9}"
@@ -31,10 +29,6 @@ Global
 		{D5F070AA-C5D3-458F-8F48-A0BF288EC06C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5F070AA-C5D3-458F-8F48-A0BF288EC06C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5F070AA-C5D3-458F-8F48-A0BF288EC06C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{60A9E804-0BB9-4452-83C6-C640031F54C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{60A9E804-0BB9-4452-83C6-C640031F54C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{60A9E804-0BB9-4452-83C6-C640031F54C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{60A9E804-0BB9-4452-83C6-C640031F54C6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5AC19836-34C1-4F09-B576-611EB935222F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5AC19836-34C1-4F09-B576-611EB935222F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AC19836-34C1-4F09-B576-611EB935222F}.Release|Any CPU.ActiveCfg = Release|Any CPU

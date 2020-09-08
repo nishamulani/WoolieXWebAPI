@@ -8,9 +8,9 @@ namespace WooliesX.Models.Resource
 {
     public class Trolly
     {
-        public Product Product { get; set; }
-        public Special Special { get; set; }
-        public Quantities Quantities { get; set; }
+        public  IEnumerable<Product> Products { get; set; }
+        public IEnumerable<Special> Specials { get; set; }
+        public IEnumerable<Quantities> Quantities { get; set; }
     }
 
     public class Special

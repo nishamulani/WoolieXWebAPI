@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using WooliesX.Connector;
 using WooliesX.Interface;
 using WooliesX.Models.Resource;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.DataContracts;
 
 namespace WooliesX.Resources
 {
@@ -16,9 +18,9 @@ namespace WooliesX.Resources
 
         private static string Resource_ShopperHistory_API_URL = "/api/resource/shopperHistory";
 
-  
+        private TelemetryClient telemetryClient = new TelemetryClient();
 
-         
+
         private IJsonConnector _wooliesXProductConnector;
         public IJsonConnector WooliesXProductConnector
         {
@@ -37,14 +39,25 @@ namespace WooliesX.Resources
         
         public IEnumerable<ShopperHistory> GetShopperHistoryDetails()
         {
+            try
+            {
+                var data = string.Format("?token={0}", ConfigurationManager.AppSettings["WooliesX.Dev.TestAPIs.Token"]);
+                var json = WooliesXProductConnector.MakeRequest(data);
+                telemetryClient.TrackTrace($"JSON from ShopperHistory API: {json}", SeverityLevel.Information);
 
-            var data = string.Format("?token={0}", ConfigurationManager.AppSettings["WooliesX.Dev.TestAPIs.Token"]);
-            var json = WooliesXProductConnector.MakeRequest(data);
-           
+                var shopperHistoryDetails = JsonConvert.DeserializeObject<IEnumerable<ShopperHistory>>(json);
 
-            var shopperHistoryDetails = JsonConvert.DeserializeObject<IEnumerable<ShopperHistory>>(json);
-           
-            return shopperHistoryDetails;
+                return shopperHistoryDetails;
+
+            }
+            catch (Exception ex)
+            {
+
+                telemetryClient.TrackTrace($"Error in retrieving shoppers history:{ex.Message})", SeverityLevel.Error);
+                return null;
+            }
+
+         
         }
 
     }

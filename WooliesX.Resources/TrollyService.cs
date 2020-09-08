@@ -13,27 +13,28 @@ namespace WooliesX.Resources
         {
 
             decimal trollyTotal = 0;
-
-            if(trolly.Product.Name == trolly.Quantities.Name && trolly.Product.Name == trolly.Special.Quantities.Name)
+            foreach (var product in trolly.Products)
             {
-               if ( trolly.Quantities.Quantity >= trolly.Special.Quantities.Quantity )
+                var quantity = trolly.Quantities.FirstOrDefault(q => q.Name == product.Name);
+                var special = trolly.Specials.FirstOrDefault(s => s.Quantities.Name == product.Name);
+
+                if (quantity != null && special != null)
                 {
-                    var specialUnit = trolly.Quantities.Quantity / trolly.Special.Quantities.Quantity;
-                    var individualUnits = trolly.Quantities.Quantity % trolly.Special.Quantities.Quantity;
-                    trollyTotal = (specialUnit * trolly.Special.Total) + (individualUnits * trolly.Product.Price);
+
+                    if (quantity.Quantity >= special.Quantities.Quantity)
+                    {
+                        var specialUnit = quantity.Quantity / special.Quantities.Quantity;
+                        var individualUnits = quantity.Quantity % special.Quantities.Quantity;
+                        trollyTotal = trollyTotal + ((specialUnit * special.Total) + (individualUnits * product.Price));
+
+                    }
 
                 }
-               else
+                if(quantity != null && special == null)
                 {
-                    trollyTotal = trolly.Quantities.Quantity * trolly.Product.Price;
+                    trollyTotal = trollyTotal + (product.Price * quantity.Quantity);
                 }
-                
             }
-            else
-            {
-                //error
-            }
-           
             return trollyTotal;
         }
     }

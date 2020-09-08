@@ -1,4 +1,7 @@
 ﻿
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.DataContracts;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,9 +21,11 @@ namespace WooliesX.WebAPI.Controllers
     {
         
         public ProductService ProductService = new ProductService();
+        private TelemetryClient telemetryClient = new TelemetryClient();
 
         [HttpGet]
         [ActionName("products")]
+
         // GET: Product
         public IEnumerable<Product> Get()
         {
@@ -31,9 +36,13 @@ namespace WooliesX.WebAPI.Controllers
 
         [HttpGet]
         [ActionName("sort")]
+        // Sorts the products
         public IEnumerable<Product> Sort(string sortOption)
         {
             var products = ProductService.GetSortedProducts(sortOption);
+            string json = JsonConvert.SerializeObject(products);
+            telemetryClient.TrackTrace($"JSON Sent from products/sort API :{json})", SeverityLevel.Error);
+
             return products;
 
         }

@@ -57,6 +57,10 @@
       <Project>{d5f070aa-c5d3-458f-8f48-a0bf288ec06c}</Project>
       <Name>WooliesX.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WooliesX.Models\WooliesX.Models.csproj">
+      <Project>{20f82b42-ac65-4c43-bf11-55a275e92df9}</Project>
+      <Name>WooliesX.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

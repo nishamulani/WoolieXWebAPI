@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.DataContracts;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -14,17 +17,18 @@ namespace WooliesX.WebAPI.Controllers
 
         public TrollyService TrollyService = new TrollyService();
 
-        // GET api/<controller>/5
-        public string Get(int id)
-        {
-            return "value";
-        }
+        private TelemetryClient telemetryClient = new TelemetryClient();
 
-        // POST api/<controller>
+
         [HttpPost]
         public decimal Total([FromBody]Trolly trolly)
         {
-            return TrollyService.CalculateTrollyTotal(trolly);
+            var total = TrollyService.CalculateTrollyTotal(trolly);
+
+            string json = JsonConvert.SerializeObject(total);
+            telemetryClient.TrackTrace($"JSON Sent from trolly/total API :{json})", SeverityLevel.Error);
+            return total;
+
         }
        
 

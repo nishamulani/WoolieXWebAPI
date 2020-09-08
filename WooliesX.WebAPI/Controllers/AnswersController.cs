@@ -1,4 +1,7 @@
 ﻿
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.DataContracts;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,36 +21,23 @@ namespace WooliesX.WebAPI.Controllers
     {         
 
         public UserService UserService = new UserService();
-
-       
+        private TelemetryClient telemetryClient = new TelemetryClient();
 
         [HttpGet]
         [ActionName("user")]
         public User Get(string name, string token)
         {
+            
+            if(ModelState.IsValid)
+            {
+                var user =  UserService.GetUser(name, token);
+                string json = JsonConvert.SerializeObject(user);
+                telemetryClient.TrackTrace($"JSON Sent from answers/users API :{json})", SeverityLevel.Error);
+                return user;
+            }
 
-            //var user = UserService.GetUser();
-            User user1 = new User();
-            user1.Name = name;
-            user1.Token = token;
-           return user1;
+            return null;
         }
-
        
-
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
     }
 }
